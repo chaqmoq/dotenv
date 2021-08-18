@@ -51,6 +51,10 @@ public final class DotEnv {
         unsetenv(key)
     }
 
+    public func reset() {
+        for key in all.keys { unsetenv(key) }
+    }
+
     public subscript(key: String) -> String? {
         get { get(key) }
         set { set(newValue, forKey: key) }
