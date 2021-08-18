@@ -17,7 +17,7 @@ public final class DotEnv {
             throw fileError(.fileMustBeUTF8Encodable, filePath: path)
         }
 
-        return File(source)
+        return File(source, path: path)
     }
 
     public func parseFile(_ file: File) throws -> [String: String] {
