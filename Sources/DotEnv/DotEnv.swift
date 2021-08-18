@@ -39,6 +39,7 @@ public final class DotEnv {
     }
 
     public func set(_ value: String?, forKey key: String, overwrite: Bool = true) {
+        let value = value ?? ""
         setenv(key, value, overwrite ? 1 : 0)
     }
 
