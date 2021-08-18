@@ -7,7 +7,11 @@ let package = Package(
     products: [.library(name: "DotEnv", targets: ["DotEnv"])],
     targets: [
         .target(name: "DotEnv"),
-        .testTarget(name: "DotEnvTests", dependencies: [.target(name: "DotEnv")])
+        .testTarget(
+            name: "DotEnvTests",
+            dependencies: [.target(name: "DotEnv")],
+            resources: [.process("Resources")]
+        )
     ],
     swiftLanguageVersions: [.v5]
 )
