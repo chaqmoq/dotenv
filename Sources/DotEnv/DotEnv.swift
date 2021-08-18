@@ -52,7 +52,7 @@ public final class DotEnv {
     }
 
     public func reset() {
-        for key in all.keys { unsetenv(key) }
+        for key in all.keys { unset(key) }
     }
 
     public subscript(key: String) -> String? {
