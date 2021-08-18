@@ -47,6 +47,10 @@ public final class DotEnv {
         for (key, value) in variables { set(value, forKey: key, overwrite: overwrite) }
     }
 
+    public func unset(_ key: String) {
+        unsetenv(key)
+    }
+
     public subscript(key: String) -> String? {
         get { get(key) }
         set { set(newValue, forKey: key) }
