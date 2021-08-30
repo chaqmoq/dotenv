@@ -34,11 +34,12 @@ final class FileErrorTests: XCTestCase {
 
     func testInitWithErrorTypeAndFilePath() {
         // Arrange
-        let message = ErrorType.invalidFile.message
+        let errorType = ErrorType.invalidFile
+        let message = errorType.message
         let filePath = "/"
 
         // Act
-        let error = FileError(.invalidFile, filePath: filePath)
+        let error = FileError(errorType, filePath: filePath)
 
         // Assert
         XCTAssertEqual(error.message, """
@@ -47,6 +48,7 @@ final class FileErrorTests: XCTestCase {
         )
         XCTAssertEqual(error.filePath, error.filePath)
         XCTAssertEqual(error.errorDescription, error.message)
+        XCTAssertEqual(error, fileError(errorType, filePath: filePath))
     }
 }
 
@@ -114,6 +116,7 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.line, line)
         XCTAssertEqual(error.column, column)
         XCTAssertEqual(error.errorDescription, error.message)
+        XCTAssertEqual(error, syntaxError(errorType, filePath: filePath, line: line, column: column))
     }
 }
 
