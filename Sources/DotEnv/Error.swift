@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FileError: LocalizedError {
+public struct FileError: LocalizedError, Equatable {
     public let filePath: String?
     private(set) var message: String
     public var errorDescription: String? { message }
@@ -25,7 +25,7 @@ public struct FileError: LocalizedError {
     }
 }
 
-public struct SyntaxError: LocalizedError {
+public struct SyntaxError: LocalizedError, Equatable {
     public let filePath: String?
     private(set) var message: String
     public let line: Int
