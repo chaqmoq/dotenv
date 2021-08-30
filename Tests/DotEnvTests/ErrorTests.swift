@@ -92,4 +92,27 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.column, column)
         XCTAssertEqual(error.errorDescription, error.message)
     }
+
+    func testInitWithErrorTypeAndFilePath() {
+        // Arrange
+        let line = 1
+        let column = 1
+        let errorType = ErrorType.invalidVariable("DATABASE_USER")
+        let message = errorType.message
+        let filePath = "/"
+
+        // Act
+        let error = SyntaxError(errorType, filePath: filePath, line: line, column: column)
+
+        // Assert
+        XCTAssertEqual(error.message, """
+        [File: "\(filePath)", Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
+        \(message)
+        """
+        )
+        XCTAssertEqual(error.filePath, filePath)
+        XCTAssertEqual(error.line, line)
+        XCTAssertEqual(error.column, column)
+        XCTAssertEqual(error.errorDescription, error.message)
+    }
 }
