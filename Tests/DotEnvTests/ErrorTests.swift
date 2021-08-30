@@ -116,3 +116,25 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.errorDescription, error.message)
     }
 }
+
+final class ErrorTypeTests: XCTestCase {
+    func testCases() {
+        // Arrange
+        let variable = "DATABASE_USER"
+
+        // Assert
+        XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, ErrorType.fileMustBeUTF8Encodable.description)
+        XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, "An environment file must be UTF8 encodable.")
+        XCTAssertEqual(ErrorType.invalidFile.message, ErrorType.invalidFile.description)
+        XCTAssertEqual(ErrorType.invalidFile.message, "An invalid environment file.")
+        XCTAssertEqual(ErrorType.invalidVariable(variable).message, ErrorType.invalidVariable(variable).description)
+        XCTAssertEqual(
+            ErrorType.invalidVariable(variable).message,
+            "An invalid variable `\(variable)`. A variable must be alphanumeric and must start with a letter."
+        )
+        XCTAssertEqual(ErrorType.unknownedError.message, ErrorType.unknownedError.description)
+        XCTAssertEqual(ErrorType.unknownedError.message, "An unknown error.")
+        XCTAssertEqual(ErrorType.unterminatedString.message, ErrorType.unterminatedString.description)
+        XCTAssertEqual(ErrorType.unterminatedString.message, "An unterminated string.")
+    }
+}
