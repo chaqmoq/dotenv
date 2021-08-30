@@ -4,7 +4,7 @@ import XCTest
 final class FileErrorTests: XCTestCase {
     func testInit() {
         // Act
-        var error = FileError()
+        let error = FileError()
 
         // Assert
         XCTAssertEqual(
@@ -13,13 +13,15 @@ final class FileErrorTests: XCTestCase {
         )
         XCTAssertNil(error.filePath)
         XCTAssertEqual(error.errorDescription, error.message)
+    }
 
+    func testInitWithMessageAndFilePath() {
         // Arrange
         let filePath = "/"
         let message = ErrorType.invalidFile.message
 
         // Act
-        error = FileError(message, filePath: filePath)
+        let error = FileError(message, filePath: filePath)
 
         // Assert
         XCTAssertEqual(error.message, """
@@ -38,7 +40,7 @@ final class SyntaxErrorTests: XCTestCase {
         let column = 1
 
         // Act
-        var error = SyntaxError(line: line, column: column)
+        let error = SyntaxError(line: line, column: column)
 
         // Assert
         XCTAssertEqual(error.message, """
@@ -50,13 +52,17 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.line, line)
         XCTAssertEqual(error.column, column)
         XCTAssertEqual(error.errorDescription, error.message)
+    }
 
+    func testInitWithMessageAndFilePath() {
         // Arrange
+        let line = 1
+        let column = 1
         let message = ErrorType.invalidVariable("DATABASE_USER").message
         let filePath = "/"
 
         // Act
-        error = SyntaxError(message, filePath: filePath, line: line, column: column)
+        let error = SyntaxError(message, filePath: filePath, line: line, column: column)
 
         // Assert
         XCTAssertEqual(error.message, """
