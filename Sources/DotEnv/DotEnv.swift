@@ -12,7 +12,7 @@ public final class DotEnv {
 
     public func readFile(at path: String) throws -> File {
         let fileManager = FileManager.default
-        guard let data = fileManager.contents(atPath: path) else { throw fileError(.invalidFile, filePath: path) }
+        guard let data = fileManager.contents(atPath: path) else { throw fileError(.fileNotFound, filePath: path) }
         guard let source = String(data: data, encoding: .utf8) else {
             throw fileError(.fileMustBeUTF8Encodable, filePath: path)
         }

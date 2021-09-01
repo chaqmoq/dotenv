@@ -60,7 +60,7 @@ public enum ErrorType: CustomStringConvertible {
     case unknownedError
 
     // FileError
-    case invalidFile
+    case fileNotFound
     case fileMustBeUTF8Encodable
 
     // SyntaxError
@@ -74,7 +74,7 @@ public enum ErrorType: CustomStringConvertible {
         case .unknownedError: return "An unknown error."
 
         // FileError
-        case .invalidFile: return "An invalid environment file."
+        case .fileNotFound: return "An environment file is not found."
         case .fileMustBeUTF8Encodable: return "An environment file must be UTF8 encodable."
 
         // SyntaxError

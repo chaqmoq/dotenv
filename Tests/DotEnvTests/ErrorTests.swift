@@ -17,8 +17,8 @@ final class FileErrorTests: XCTestCase {
 
     func testInitWithMessageAndFilePath() {
         // Arrange
-        let message = ErrorType.invalidFile.message
-        let filePath = "/"
+        let filePath = "/.env"
+        let message = ErrorType.fileNotFound.message
 
         // Act
         let error = FileError(message, filePath: filePath)
@@ -34,9 +34,9 @@ final class FileErrorTests: XCTestCase {
 
     func testInitWithErrorTypeAndFilePath() {
         // Arrange
-        let errorType = ErrorType.invalidFile
+        let filePath = "/.env"
+        let errorType = ErrorType.fileNotFound
         let message = errorType.message
-        let filePath = "/"
 
         // Act
         let error = FileError(errorType, filePath: filePath)
@@ -78,7 +78,7 @@ final class SyntaxErrorTests: XCTestCase {
         let line = 1
         let column = 1
         let message = ErrorType.invalidVariable("DATABASE_USER").message
-        let filePath = "/"
+        let filePath = "/.env"
 
         // Act
         let error = SyntaxError(message, filePath: filePath, line: line, column: column)
@@ -101,7 +101,7 @@ final class SyntaxErrorTests: XCTestCase {
         let column = 1
         let errorType = ErrorType.invalidVariable("DATABASE_USER")
         let message = errorType.message
-        let filePath = "/"
+        let filePath = "/.env"
 
         // Act
         let error = SyntaxError(errorType, filePath: filePath, line: line, column: column)
@@ -128,8 +128,8 @@ final class ErrorTypeTests: XCTestCase {
         // Assert
         XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, ErrorType.fileMustBeUTF8Encodable.description)
         XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, "An environment file must be UTF8 encodable.")
-        XCTAssertEqual(ErrorType.invalidFile.message, ErrorType.invalidFile.description)
-        XCTAssertEqual(ErrorType.invalidFile.message, "An invalid environment file.")
+        XCTAssertEqual(ErrorType.fileNotFound.message, ErrorType.fileNotFound.description)
+        XCTAssertEqual(ErrorType.fileNotFound.message, "An environment file is not found.")
         XCTAssertEqual(ErrorType.invalidVariable(variable).message, ErrorType.invalidVariable(variable).description)
         XCTAssertEqual(
             ErrorType.invalidVariable(variable).message,
