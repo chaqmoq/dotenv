@@ -5,11 +5,11 @@ public struct FileError: LocalizedError, Equatable {
     private(set) var message: String
     public var errorDescription: String? { message }
 
-    public init(_ errorType: ErrorType, filePath: String? = nil) {
+    init(_ errorType: ErrorType, filePath: String? = nil) {
         self.init(errorType.message, filePath: filePath)
     }
 
-    public init(_ message: String? = nil, filePath: String? = nil) {
+    init(_ message: String? = nil, filePath: String? = nil) {
         self.filePath = filePath
         let errorType = String(describing: type(of: self))
 
@@ -32,11 +32,11 @@ public struct SyntaxError: LocalizedError, Equatable {
     public let column: Int
     public var errorDescription: String? { message }
 
-    public init(_ errorType: ErrorType, filePath: String? = nil, line: Int, column: Int) {
+    init(_ errorType: ErrorType, filePath: String? = nil, line: Int, column: Int) {
         self.init(errorType.message, filePath: filePath, line: line, column: column)
     }
 
-    public init(_ message: String? = nil, filePath: String? = nil, line: Int, column: Int) {
+    init(_ message: String? = nil, filePath: String? = nil, line: Int, column: Int) {
         self.filePath = filePath
         self.line = line
         self.column = column
