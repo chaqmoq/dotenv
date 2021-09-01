@@ -94,4 +94,26 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(env.all["DICTIONARY"], "{\"key\": \"value\"}")
         XCTAssertEqual(env.all["FILE_PATH"], "/to/path")
     }
+
+    func testSettingVariable() {
+        // Arrange
+        let key1 = "KEY1"
+        let value1 = "value1"
+        let key2 = "KEY2"
+        let value2: String? = nil
+        let key3 = "KEY3"
+        let value3 = "value3"
+        let key4 = "KEY4"
+
+        // Act
+        env.set(value1, forKey: key1)
+        env.set(value2, forKey: key2)
+        env[key3] = value3
+
+        // Assert
+        XCTAssertEqual(env.get(key1), value1)
+        XCTAssertEqual(env.get(key2), "")
+        XCTAssertEqual(env[key3], value3)
+        XCTAssertNil(env.get(key4))
+    }
 }
