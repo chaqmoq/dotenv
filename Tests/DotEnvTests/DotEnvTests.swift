@@ -43,4 +43,23 @@ final class DotEnvTests: XCTestCase {
             )
         }
     }
+
+    func testParsingFileWithInvalidVariableValue() {
+        // Arrange
+        let filePath = "\(Bundle.module.resourcePath!)/invalid.env"
+        let file = try! env.readFile(at: filePath)
+        let variable = file.source.trimmingCharacters(in: .newlines)
+        let line = 1
+        let column = variable.count
+
+        // Act/Assert
+        XCTAssertThrowsError(try env.parseFile(file)) { error in
+            XCTAssertTrue(error is SyntaxError)
+            XCTAssertEqual(error.localizedDescription, """
+            [File: "\(filePath)", Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
+            \(ErrorType.invalidVariableValue(variable).message)
+            """
+            )
+        }
+    }
 }
