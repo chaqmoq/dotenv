@@ -79,4 +79,19 @@ final class DotEnvTests: XCTestCase {
             )
         }
     }
+
+    func testLoadingFile() {
+        // Arrange
+        let filePath = "\(Bundle.module.resourcePath!)/env"
+
+        // Act/Assert
+        XCTAssertNoThrow(try env.load(atPath: filePath))
+        XCTAssertEqual(env.all["EMTPY"], "")
+        XCTAssertEqual(env.all["QUOTE"], "quote")
+        XCTAssertEqual(env.all["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(env.all["UNQUOTED"], "unquoted")
+        XCTAssertEqual(env.all["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(env.all["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(env.all["FILE_PATH"], "/to/path")
+    }
 }

@@ -5,7 +5,5 @@ QUOTE="quote"
 QUOTE_WHITESPACE=" quote whitespace " # Trailing comment
 UNQUOTED=unquoted
 UNQUOTED_WHITESPACE= unquoted whitespace
-INNER_QUOTE={"key": "value"}
-
-# Support multiline double quoted string
-MULTILINE_QUOTE="multi\nline"
+DICTIONARY={"key": "value"}
+FILE_PATH=/to/path
