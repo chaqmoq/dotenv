@@ -23,4 +23,24 @@ final class DotEnvTests: XCTestCase {
             )
         }
     }
+
+    func testParsingFileWithInvalidVariableName() {
+        // Arrange
+        let invalidCharacter = "1"
+        let file: File = """
+        1_INVALID_VARIABLE_NAME=value
+        """
+        let line = 1
+        let column = 1
+
+        // Act/Assert
+        XCTAssertThrowsError(try env.parseFile(file)) { error in
+            XCTAssertTrue(error is SyntaxError)
+            XCTAssertEqual(error.localizedDescription, """
+            [Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
+            \(ErrorType.invalidVariableName(invalidCharacter).message)
+            """
+            )
+        }
+    }
 }
