@@ -34,7 +34,12 @@ extension Parser {
                 if isAlpha(character) {
                     try addVariable()
                 } else {
-                    throw syntaxError(.invalidVariable(character), filePath: file.path, line: line, column: column)
+                    throw syntaxError(
+                        .invalidVariableName(character),
+                        filePath: file.path,
+                        line: line,
+                        column: column
+                    )
                 }
             }
         }
@@ -62,7 +67,7 @@ extension Parser {
                 variables[name] = substring(from: start, to: current).trimmingCharacters(in: .whitespaces)
             }
         } else {
-            throw syntaxError(.invalidVariable(name), filePath: file.path, line: line, column: column)
+            throw syntaxError(.invalidVariableValue(name), filePath: file.path, line: line, column: column)
         }
     }
 }
@@ -103,7 +108,7 @@ extension Parser {
 
     private func advanceUntilQuoteOrRaiseError() throws {
         while peek() != Token.quote.rawValue, !isAtEnd { advance() }
-        if isAtEnd { throw syntaxError(.unterminatedString, filePath: file.path, line: line, column: column - 1) }
+        if isAtEnd { throw syntaxError(.unterminatedString, filePath: file.path, line: line, column: column) }
     }
 
     private func advanceWhileAlphaNumeric() {

@@ -77,7 +77,7 @@ final class SyntaxErrorTests: XCTestCase {
         // Arrange
         let line = 1
         let column = 1
-        let message = ErrorType.invalidVariable("DATABASE_USER").message
+        let message = ErrorType.invalidVariableValue("DATABASE_USER").message
         let filePath = "/.env"
 
         // Act
@@ -99,7 +99,7 @@ final class SyntaxErrorTests: XCTestCase {
         // Arrange
         let line = 1
         let column = 1
-        let errorType = ErrorType.invalidVariable("DATABASE_USER")
+        let errorType = ErrorType.invalidVariableValue("DATABASE_USER")
         let message = errorType.message
         let filePath = "/.env"
 
@@ -123,6 +123,7 @@ final class SyntaxErrorTests: XCTestCase {
 final class ErrorTypeTests: XCTestCase {
     func testCases() {
         // Arrange
+        let invalidCharacter = "1"
         let variable = "DATABASE_USER"
 
         // Assert
@@ -130,10 +131,27 @@ final class ErrorTypeTests: XCTestCase {
         XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, "An environment file must be UTF8 encodable.")
         XCTAssertEqual(ErrorType.fileNotFound.message, ErrorType.fileNotFound.description)
         XCTAssertEqual(ErrorType.fileNotFound.message, "An environment file is not found.")
-        XCTAssertEqual(ErrorType.invalidVariable(variable).message, ErrorType.invalidVariable(variable).description)
         XCTAssertEqual(
-            ErrorType.invalidVariable(variable).message,
-            "An invalid variable `\(variable)`. A variable must be alphanumeric and must start with a letter."
+            ErrorType.invalidVariableName(invalidCharacter).message,
+            ErrorType.invalidVariableName(invalidCharacter).description
+        )
+        XCTAssertEqual(
+            ErrorType.invalidVariableName(invalidCharacter).message,
+            """
+            An invalid character "\(invalidCharacter)" in a variable. A variable must be alphanumeric and must \
+            start with a letter.
+            """
+        )
+        XCTAssertEqual(
+            ErrorType.invalidVariableValue(variable).message,
+            ErrorType.invalidVariableValue(variable).description
+        )
+        XCTAssertEqual(
+            ErrorType.invalidVariableValue(variable).message,
+            """
+            A variable "\(variable)" must have a value or a suffix "\(Token.equal.rawValue)" to denote its value is \
+            empty.
+            """
         )
         XCTAssertEqual(ErrorType.unknownedError.message, ErrorType.unknownedError.description)
         XCTAssertEqual(ErrorType.unknownedError.message, "An unknown error.")

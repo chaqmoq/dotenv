@@ -64,7 +64,8 @@ public enum ErrorType: CustomStringConvertible {
     case fileMustBeUTF8Encodable
 
     // SyntaxError
-    case invalidVariable(_ variable: String)
+    case invalidVariableName(_ character: String)
+    case invalidVariableValue(_ variable: String)
     case unterminatedString
 
     public var description: String { message }
@@ -78,8 +79,16 @@ public enum ErrorType: CustomStringConvertible {
         case .fileMustBeUTF8Encodable: return "An environment file must be UTF8 encodable."
 
         // SyntaxError
-        case .invalidVariable(let variable):
-            return "An invalid variable `\(variable)`. A variable must be alphanumeric and must start with a letter."
+        case .invalidVariableName(let character):
+            return """
+            An invalid character "\(character)" in a variable. A variable must be alphanumeric and must start with \
+            a letter.
+            """
+        case .invalidVariableValue(let variable):
+            return """
+            A variable "\(variable)" must have a value or a suffix "\(Token.equal.rawValue)" to denote its value is \
+            empty.
+            """
         case .unterminatedString: return "An unterminated string."
         }
     }
