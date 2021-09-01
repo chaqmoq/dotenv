@@ -62,4 +62,21 @@ final class DotEnvTests: XCTestCase {
             )
         }
     }
+
+    func testParsingFileWithUnterminatedString() {
+        // Arrange
+        let file: File = "UNTERMINATED_STRING=\""
+        let line = 1
+        let column = file.source.count
+
+        // Act/Assert
+        XCTAssertThrowsError(try env.parseFile(file)) { error in
+            XCTAssertTrue(error is SyntaxError)
+            XCTAssertEqual(error.localizedDescription, """
+            [Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
+            \(ErrorType.unterminatedString.message)
+            """
+            )
+        }
+    }
 }
