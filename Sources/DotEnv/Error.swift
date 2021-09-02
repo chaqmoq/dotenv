@@ -56,6 +56,7 @@ public struct SyntaxError: LocalizedError, Equatable {
     }
 }
 
+/// A collection of all error types that can happen.
 public enum ErrorType: LocalizedError {
     case unknownedError
 
@@ -68,6 +69,7 @@ public enum ErrorType: LocalizedError {
     case invalidVariableValue(_ variable: String)
     case unterminatedString
 
+    /// See `LocalizedError`.
     public var errorDescription: String? { message }
 
     var message: String {
