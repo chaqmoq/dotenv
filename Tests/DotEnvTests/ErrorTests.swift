@@ -127,13 +127,13 @@ final class ErrorTypeTests: XCTestCase {
         let variable = "DATABASE_USER"
 
         // Assert
-        XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, ErrorType.fileMustBeUTF8Encodable.description)
+        XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, ErrorType.fileMustBeUTF8Encodable.errorDescription)
         XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, "An environment file must be UTF8 encodable.")
-        XCTAssertEqual(ErrorType.fileNotFound.message, ErrorType.fileNotFound.description)
+        XCTAssertEqual(ErrorType.fileNotFound.message, ErrorType.fileNotFound.errorDescription)
         XCTAssertEqual(ErrorType.fileNotFound.message, "An environment file is not found.")
         XCTAssertEqual(
             ErrorType.invalidVariableName(invalidCharacter).message,
-            ErrorType.invalidVariableName(invalidCharacter).description
+            ErrorType.invalidVariableName(invalidCharacter).errorDescription
         )
         XCTAssertEqual(
             ErrorType.invalidVariableName(invalidCharacter).message,
@@ -144,7 +144,7 @@ final class ErrorTypeTests: XCTestCase {
         )
         XCTAssertEqual(
             ErrorType.invalidVariableValue(variable).message,
-            ErrorType.invalidVariableValue(variable).description
+            ErrorType.invalidVariableValue(variable).errorDescription
         )
         XCTAssertEqual(
             ErrorType.invalidVariableValue(variable).message,
@@ -153,9 +153,9 @@ final class ErrorTypeTests: XCTestCase {
             empty.
             """
         )
-        XCTAssertEqual(ErrorType.unknownedError.message, ErrorType.unknownedError.description)
+        XCTAssertEqual(ErrorType.unknownedError.message, ErrorType.unknownedError.errorDescription)
         XCTAssertEqual(ErrorType.unknownedError.message, "An unknown error.")
-        XCTAssertEqual(ErrorType.unterminatedString.message, ErrorType.unterminatedString.description)
+        XCTAssertEqual(ErrorType.unterminatedString.message, ErrorType.unterminatedString.errorDescription)
         XCTAssertEqual(ErrorType.unterminatedString.message, "An unterminated string.")
     }
 }

@@ -56,7 +56,7 @@ public struct SyntaxError: LocalizedError, Equatable {
     }
 }
 
-public enum ErrorType: CustomStringConvertible {
+public enum ErrorType: LocalizedError {
     case unknownedError
 
     // FileError
@@ -68,7 +68,7 @@ public enum ErrorType: CustomStringConvertible {
     case invalidVariableValue(_ variable: String)
     case unterminatedString
 
-    public var description: String { message }
+    public var errorDescription: String? { message }
 
     public var message: String {
         switch self {
