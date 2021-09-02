@@ -83,6 +83,7 @@ public enum ErrorType: LocalizedError {
     /// Fired when the value of an environment variable is invalid.
     case invalidVariableValue(_ variable: String)
 
+    /// Fired as a fallback for an unknown error.
     case unknownedError
 
     /// Fired when the value of an environment variable is not closed with double quotes.
