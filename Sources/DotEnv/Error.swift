@@ -30,7 +30,7 @@ public struct FileError: LocalizedError, Equatable {
     }
 }
 
-/// A representation of a syntax error in an environment file.
+/// A representation of a syntax error thrown when the content of an environment file being parsed and validated is invalid.
 public struct SyntaxError: LocalizedError, Equatable {
     /// An absolute path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
     public let filePath: String?
