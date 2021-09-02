@@ -25,12 +25,20 @@ public struct FileError: LocalizedError, Equatable {
     }
 }
 
+/// A representation of a syntax error in an environment file.
 public struct SyntaxError: LocalizedError, Equatable {
+    /// A path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
     public let filePath: String?
-    private(set) var message: String
+
+    /// A line to a file where an error occurs.
     public let line: Int
+    /// A column to a file where an error occurs.
     public let column: Int
+
+    /// See `LocalizedError`.
     public var errorDescription: String? { message }
+
+    private(set) var message: String
 
     init(_ errorType: ErrorType, filePath: String? = nil, line: Int, column: Int) {
         self.init(errorType.message, filePath: filePath, line: line, column: column)
@@ -56,7 +64,7 @@ public struct SyntaxError: LocalizedError, Equatable {
     }
 }
 
-/// A collection of all error types that can happen.
+/// A collection of all error types that can occur.
 public enum ErrorType: LocalizedError {
     case unknownedError
 
