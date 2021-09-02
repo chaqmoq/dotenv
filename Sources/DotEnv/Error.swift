@@ -70,7 +70,7 @@ public enum ErrorType: LocalizedError {
 
     public var errorDescription: String? { message }
 
-    public var message: String {
+    var message: String {
         switch self {
         case .unknownedError: return "An unknown error."
 
