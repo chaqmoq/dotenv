@@ -71,15 +71,21 @@ public struct SyntaxError: LocalizedError, Equatable {
 
 /// A collection of all error types that can occur.
 public enum ErrorType: LocalizedError {
-    case unknownedError
-
-    // FileError
-    case fileNotFound
+    /// Fired when an environment file is not UTF8 encodable.
     case fileMustBeUTF8Encodable
 
-    // SyntaxError
+    /// Fired when an environment file can't be found in the file system.
+    case fileNotFound
+
+    /// Fired when the name of an environment variable has an invalid character.
     case invalidVariableName(_ character: String)
+
+    /// Fired when the value of an environment variable is invalid.
     case invalidVariableValue(_ variable: String)
+
+    case unknownedError
+
+    /// Fired when the value of an environment variable is not closed with double quotes.
     case unterminatedString
 
     /// See `LocalizedError`.
@@ -87,13 +93,8 @@ public enum ErrorType: LocalizedError {
 
     var message: String {
         switch self {
-        case .unknownedError: return "An unknown error."
-
-        // FileError
-        case .fileNotFound: return "An environment file is not found."
         case .fileMustBeUTF8Encodable: return "An environment file must be UTF8 encodable."
-
-        // SyntaxError
+        case .fileNotFound: return "An environment file is not found."
         case .invalidVariableName(let character):
             return """
             An invalid character "\(character)" in a variable. A variable must be alphanumeric and must start with \
@@ -104,6 +105,7 @@ public enum ErrorType: LocalizedError {
             A variable "\(variable)" must have a value or a suffix "\(Token.equal.rawValue)" to denote its value is \
             empty.
             """
+        case .unknownedError: return "An unknown error."
         case .unterminatedString: return "An unterminated string."
         }
     }
