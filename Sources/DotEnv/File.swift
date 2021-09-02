@@ -3,7 +3,7 @@ public struct File: CustomStringConvertible, Equatable, ExpressibleByStringLiter
     /// A content of a file.
     public let source: String
 
-    /// An absolute path to a file in the file system.
+    /// An absolute path to a file in the file system. Defaults to `nil`.
     public let path: String?
 
     /// See `ExpressibleByStringLiteral`.
