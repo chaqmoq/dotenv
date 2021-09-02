@@ -2,7 +2,7 @@ import Foundation
 
 /// A representation of an error that can occur when an environment file being loaded either doesn't exist or is not UTF8 encodable.
 public struct FileError: LocalizedError, Equatable {
-    /// A path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
+    /// An absolute path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
     public let filePath: String?
 
     /// See `LocalizedError`.
@@ -32,7 +32,7 @@ public struct FileError: LocalizedError, Equatable {
 
 /// A representation of a syntax error in an environment file.
 public struct SyntaxError: LocalizedError, Equatable {
-    /// A path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
+    /// An absolute path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
     public let filePath: String?
 
     /// A line to a file where an error occurs.
