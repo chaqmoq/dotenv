@@ -122,8 +122,8 @@ final class ErrorTypeTests: XCTestCase {
         let variable = "DATABASE_USER"
 
         // Assert
-        XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, ErrorType.fileMustBeUTF8Encodable.errorDescription)
-        XCTAssertEqual(ErrorType.fileMustBeUTF8Encodable.message, "An environment file must be UTF8 encodable.")
+        XCTAssertEqual(ErrorType.fileNotEncodable.message, ErrorType.fileNotEncodable.errorDescription)
+        XCTAssertEqual(ErrorType.fileNotEncodable.message, "An environment file is not encodable.")
         XCTAssertEqual(ErrorType.fileNotFound.message, ErrorType.fileNotFound.errorDescription)
         XCTAssertEqual(ErrorType.fileNotFound.message, "An environment file is not found.")
         XCTAssertEqual(

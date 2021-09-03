@@ -1,6 +1,6 @@
 import Foundation
 
-/// An error thrown when an environment file being loaded either doesn't exist or its content is not UTF8 encodable.
+/// An error thrown when an environment file being loaded either doesn't exist or its content is not encodable.
 public struct FileError: LocalizedError, Equatable {
     /// An absolute path to an environment file where an error occured. Defaults to `nil` when an instance of `File` is created without a path.
     public let filePath: String?
@@ -72,8 +72,8 @@ public struct SyntaxError: LocalizedError, Equatable {
 
 /// A collection of all error types that can occur.
 public enum ErrorType: LocalizedError {
-    /// Fired when an environment file is not UTF8 encodable.
-    case fileMustBeUTF8Encodable
+    /// Fired when an environment file is not encodable.
+    case fileNotEncodable
 
     /// Fired when an environment file can't be found in the file system.
     case fileNotFound
@@ -95,7 +95,7 @@ public enum ErrorType: LocalizedError {
 
     var message: String {
         switch self {
-        case .fileMustBeUTF8Encodable: return "An environment file must be UTF8 encodable."
+        case .fileNotEncodable: return "An environment file is not encodable."
         case .fileNotFound: return "An environment file is not found."
         case let .invalidVariableName(character):
             return """
