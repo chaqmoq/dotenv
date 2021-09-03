@@ -1,8 +1,8 @@
 import Foundation
 
-/// A representation of an error that can occur when an environment file being loaded either doesn't exist or is not UTF8 encodable.
+/// An error thrown when an environment file being loaded either doesn't exist or its content is not UTF8 encodable.
 public struct FileError: LocalizedError, Equatable {
-    /// An absolute path to a file where an error occurs. Defaults to `nil` if an instance of `File` is created without a path.
+    /// An absolute path to an environment file where an error occured. Defaults to `nil` when an instance of `File` is created without a path.
     public let filePath: String?
 
     /// See `LocalizedError`.
