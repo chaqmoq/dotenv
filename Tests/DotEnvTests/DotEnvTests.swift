@@ -111,5 +111,11 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(env.get(key2), "")
         XCTAssertEqual(env[key3], value3)
         XCTAssertNil(env.get(key4))
+
+        // Act
+        env.set(value3, forKey: key2, overwrite: false)
+
+        // Assert
+        XCTAssertEqual(env.get(key2), "")
     }
 }
