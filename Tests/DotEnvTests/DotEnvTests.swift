@@ -89,6 +89,7 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(env.all["UNQUOTED_WHITESPACE"], "unquoted whitespace")
         XCTAssertEqual(env.all["DICTIONARY"], "{\"key\": \"value\"}")
         XCTAssertEqual(env.all["FILE_PATH"], "/to/path")
+        XCTAssertEqual(env.all["lowercased"], "lowercased")
     }
 
     func testSettingVariable() {

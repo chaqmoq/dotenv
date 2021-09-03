@@ -7,3 +7,4 @@ UNQUOTED=unquoted
 UNQUOTED_WHITESPACE= unquoted whitespace
 DICTIONARY={"key": "value"}
 FILE_PATH=/to/path
+lowercased=lowercased
