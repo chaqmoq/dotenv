@@ -7,16 +7,16 @@ import Darwin
 
 /// Manages environment files and variables.
 public final class DotEnv {
-    /// A reference to all system and user-defined environment variables.
+    /// All system and user-defined environment variables.
     public var all: [String: String] { ProcessInfo.processInfo.environment }
 
     /// Initializes a new instance of `DotEnv`.
     public init() {}
 
-    /// Reads the content of an environment file or throws a `FileError`.
+    /// Reads the content of an environment file or throws `FileError`.
     ///
     /// - Parameter path: An absolute path to an environment file in the file system.
-    /// - Throws: A `FileError` if an environment file being loaded either doesn't exist or is not UTF8 encodable.
+    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not UTF8 encodable.
     /// - Returns: An instance of `File`.
     public func readFile(at path: String) throws -> File {
         let fileManager = FileManager.default
@@ -28,31 +28,31 @@ public final class DotEnv {
         return File(source, path: path)
     }
 
-    /// Parses and extracts environment variables from the content of an environment file or throws a `SyntaxError`.
+    /// Parses and extracts environment variables from the content of an environment file or throws `SyntaxError`.
     ///
     /// - Parameter file: An instance of `File`.
-    /// - Throws: A `SyntaxError` if the content of an environment file is invalid.
+    /// - Throws: `SyntaxError` if the content of an environment file is invalid.
     /// - Returns: A list of all environment variables from an environment file.
     public func parseFile(_ file: File) throws -> [String: String] {
         try Parser(file: file).parse()
     }
 
-    /// Reads, parses, and extracts environment variables from the content of an environment file or throws either a `FileError` or `SyntaxError`.
+    /// Reads, parses, and extracts environment variables from the content of an environment file or throws either `FileError` or `SyntaxError`.
     ///
     /// - Parameter path: An absolute path to an environment file.
-    /// - Throws: A `FileError` if an environment file being loaded either doesn't exist or is not UTF8 encodable or a `SyntaxError` if the content of
+    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not UTF8 encodable or `SyntaxError` if the content of
     /// an environment file is invalid.
-    /// - Returns: A list of all environment variables from an environment file.
+    /// - Returns: A list of all environment variables in an environment file.
     public func parseFile(at path: String) throws -> [String: String] {
         try parseFile(try readFile(at: path))
     }
 
-    /// Reads, parses, extracts, and set enviroment variables from the content of an environment file or throws either a `FileError` or `SyntaxError`.
+    /// Reads, parses, extracts, and set enviroment variables from the content of an environment file or throws either `FileError` or `SyntaxError`.
     /// 
     /// - Parameters:
     ///   - path: An absolute path to an environment file.
-    ///   - overwrite: A boolean value to indicate whether to overwrite a value of the existing environment variable or not. Defaults to `true`.
-    /// - Throws: A `FileError` if an environment file being loaded either doesn't exist or is not UTF8 encodable or a `SyntaxError` if the content of
+    ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
+    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not UTF8 encodable or `SyntaxError` if the content of
     /// an environment file is invalid.
     public func load(atPath path: String, overwrite: Bool = true) throws {
         let variables = try parseFile(at: path)
@@ -61,8 +61,8 @@ public final class DotEnv {
 
     /// Gets an environment variable.
     ///
-    /// - Parameter key: A key of an environment variable.
-    /// - Returns: A value of an environment variable if an environment variable exists.
+    /// - Parameter key: The key of an environment variable.
+    /// - Returns: The value of an environment variable if an environment variable exists.
     public func get(_ key: String) -> String? {
         guard let value = getenv(key) else { return nil }
         return String(validatingUTF8: value)
@@ -71,9 +71,9 @@ public final class DotEnv {
     /// Sets an environment variable.
     ///
     /// - Parameters:
-    ///   - value: A value of an environment variable. Providing `nil` or an empty string results in an empty string value.
-    ///   - key: A key of an environment variable.
-    ///   - overwrite: A boolean value to indicate whether to overwrite a value of the existing environment variable or not. Defaults to `true`.
+    ///   - value: The value of an environment variable. Providing `nil` or an empty string results in an empty string value.
+    ///   - key: The key of an environment variable.
+    ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
     public func set(_ value: String?, forKey key: String, overwrite: Bool = true) {
         let value = value ?? ""
         setenv(key, value, overwrite ? 1 : 0)
@@ -90,7 +90,7 @@ public final class DotEnv {
 
     /// Removes a user-defined environment variable.
     ///
-    /// - Parameter key: A key of an environment variable.
+    /// - Parameter key: The key of an environment variable.
     public func unset(_ key: String) {
         unsetenv(key)
     }
@@ -102,8 +102,8 @@ public final class DotEnv {
 
     /// Gets or sets an environment variable.
     ///
-    /// - Parameter key: A key of an environment variable.
-    /// - Returns: A value of an environment variable if an environment variable exists.
+    /// - Parameter key: The key of an environment variable.
+    /// - Returns: The value of an environment variable if an environment variable exists.
     public subscript(key: String) -> String? {
         get { get(key) }
         set { set(newValue, forKey: key) }
