@@ -97,12 +97,12 @@ public enum ErrorType: LocalizedError {
         switch self {
         case .fileMustBeUTF8Encodable: return "An environment file must be UTF8 encodable."
         case .fileNotFound: return "An environment file is not found."
-        case .invalidVariableName(let character):
+        case let .invalidVariableName(character):
             return """
             An invalid character "\(character)" in a variable. A variable must be alphanumeric and must start with \
             a letter.
             """
-        case .invalidVariableValue(let variable):
+        case let .invalidVariableValue(variable):
             return """
             A variable "\(variable)" must have a value or a suffix "\(Token.equal.rawValue)" to denote its value is \
             empty.

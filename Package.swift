@@ -11,7 +11,7 @@ let package = Package(
             name: "DotEnvTests",
             dependencies: [.target(name: "DotEnv")],
             resources: [.process("Resources")]
-        )
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )

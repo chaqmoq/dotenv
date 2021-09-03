@@ -19,8 +19,7 @@ final class DotEnvTests: XCTestCase {
             XCTAssertTrue(error is FileError)
             XCTAssertEqual(error.localizedDescription, """
             [File: "\(filePath)"] \(String(describing: FileError.self)): \(ErrorType.fileNotFound.message)
-            """
-            )
+            """)
         }
     }
 
@@ -39,8 +38,7 @@ final class DotEnvTests: XCTestCase {
             XCTAssertEqual(error.localizedDescription, """
             [Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
             \(ErrorType.invalidVariableName(invalidCharacter).message)
-            """
-            )
+            """)
         }
     }
 
@@ -58,8 +56,7 @@ final class DotEnvTests: XCTestCase {
             XCTAssertEqual(error.localizedDescription, """
             [File: "\(filePath)", Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
             \(ErrorType.invalidVariableValue(variable).message)
-            """
-            )
+            """)
         }
     }
 
@@ -75,8 +72,7 @@ final class DotEnvTests: XCTestCase {
             XCTAssertEqual(error.localizedDescription, """
             [Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
             \(ErrorType.unterminatedString.message)
-            """
-            )
+            """)
         }
     }
 

@@ -26,8 +26,7 @@ final class FileErrorTests: XCTestCase {
         // Assert
         XCTAssertEqual(error.message, """
         [File: "\(filePath)"] \(String(describing: FileError.self)): \(message)
-        """
-        )
+        """)
         XCTAssertEqual(error.filePath, error.filePath)
         XCTAssertEqual(error.errorDescription, error.message)
     }
@@ -44,8 +43,7 @@ final class FileErrorTests: XCTestCase {
         // Assert
         XCTAssertEqual(error.message, """
         [File: "\(filePath)"] \(String(describing: FileError.self)): \(message)
-        """
-        )
+        """)
         XCTAssertEqual(error.filePath, error.filePath)
         XCTAssertEqual(error.errorDescription, error.message)
         XCTAssertEqual(error, fileError(errorType, filePath: filePath))
@@ -65,8 +63,7 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.message, """
         [Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
         \(ErrorType.unknownedError)
-        """
-        )
+        """)
         XCTAssertNil(error.filePath)
         XCTAssertEqual(error.line, line)
         XCTAssertEqual(error.column, column)
@@ -87,8 +84,7 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.message, """
         [File: "\(filePath)", Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
         \(message)
-        """
-        )
+        """)
         XCTAssertEqual(error.filePath, filePath)
         XCTAssertEqual(error.line, line)
         XCTAssertEqual(error.column, column)
@@ -110,8 +106,7 @@ final class SyntaxErrorTests: XCTestCase {
         XCTAssertEqual(error.message, """
         [File: "\(filePath)", Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
         \(message)
-        """
-        )
+        """)
         XCTAssertEqual(error.filePath, filePath)
         XCTAssertEqual(error.line, line)
         XCTAssertEqual(error.column, column)

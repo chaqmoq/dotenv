@@ -145,7 +145,7 @@ extension Parser {
         let source = file.source
         let lowerBound = source.index(source.startIndex, offsetBy: start)
         let upperBound = source.index(source.startIndex, offsetBy: end)
-        let range = lowerBound..<upperBound
+        let range = lowerBound ..< upperBound
 
         return String(source[range])
     }

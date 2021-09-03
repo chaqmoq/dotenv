@@ -48,7 +48,7 @@ public final class DotEnv {
     }
 
     /// Reads, parses, extracts, and set enviroment variables from the content of an environment file or throws either `FileError` or `SyntaxError`.
-    /// 
+    ///
     /// - Parameters:
     ///   - path: An absolute path to an environment file.
     ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
