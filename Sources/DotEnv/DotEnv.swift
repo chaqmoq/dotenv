@@ -10,8 +10,17 @@ public final class DotEnv {
     /// All system and user-defined environment variables.
     public var all: [String: String] { ProcessInfo.processInfo.environment }
 
-    /// Initializes a new instance of `DotEnv`.
-    public init() {}
+    /// A configuration for `DotEnv`.
+    public var configuration: Configuration
+
+    private var fileCache = Cache<String, File>()
+
+    /// Initializes a new instance of `DotEnv` with the default configuration.
+    public init(configuration: Configuration = .init()) {
+        self.configuration = configuration
+        fileCache.costLimit = configuration.caching.costLimit
+        fileCache.countLimit = configuration.caching.countLimit
+    }
 
     /// Reads the content of an environment file or throws `FileError`.
     ///
@@ -22,13 +31,16 @@ public final class DotEnv {
     /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable.
     /// - Returns: An instance of `File`.
     public func readFile(at path: String, encoding: String.Encoding = .utf8) throws -> File {
+        if configuration.caching.isEnabled, let file = fileCache.getValue(forKey: path) { return file }
         let fileManager = FileManager.default
         guard let data = fileManager.contents(atPath: path) else { throw fileError(.fileNotFound, filePath: path) }
         guard let source = String(data: data, encoding: encoding) else {
             throw fileError(.fileNotEncodable, filePath: path)
         }
+        let file = File(source, path: path)
+        if configuration.caching.isEnabled { fileCache.setValue(file, forKey: path) }
 
-        return File(source, path: path)
+        return file
     }
 
     /// Parses and extracts environment variables from the content of an environment file or throws `SyntaxError`.
