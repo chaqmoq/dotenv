@@ -148,7 +148,7 @@ extension DotEnv {
         /// A caching configuration.
         public let caching: CachingConfiguration
 
-        /// Initializes a new instance of `Configuration` with the default caching configuration.
+        /// Initializes a new instance of `Configuration` with the default `caching` configuration.
         ///
         /// - Parameter caching: A caching configuration.
         public init(caching: CachingConfiguration = .init()) {
