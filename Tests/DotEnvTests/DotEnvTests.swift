@@ -122,6 +122,33 @@ final class DotEnvTests: XCTestCase {
     }
 }
 
+final class DotEnvConfigurationTests: XCTestCase {
+    func testInit() {
+        // Act
+        var configuration = DotEnv.Configuration()
+
+        // Assert
+        XCTAssertEqual(configuration.caching.costLimit, 0)
+        XCTAssertEqual(configuration.caching.countLimit, 0)
+        XCTAssertTrue(configuration.caching.isEnabled)
+
+        // Arrange
+        let costLimit = 1
+        let countLimit = 2
+        let isEnabled = false
+
+        // Act
+        configuration = DotEnv.Configuration(
+            caching: .init(costLimit: costLimit, countLimit: countLimit, isEnabled: isEnabled)
+        )
+
+        // Assert
+        XCTAssertEqual(configuration.caching.costLimit, costLimit)
+        XCTAssertEqual(configuration.caching.countLimit, countLimit)
+        XCTAssertEqual(configuration.caching.isEnabled, isEnabled)
+    }
+}
+
 final class DotEnvCachingConfigurationTests: XCTestCase {
     func testInit() {
         // Act
