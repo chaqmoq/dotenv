@@ -1,5 +1,5 @@
 /// A representation of an environment file.
-public struct File: CustomStringConvertible, Equatable, ExpressibleByStringLiteral {
+public struct File: CustomStringConvertible, ExpressibleByStringLiteral {
     /// A content of an environment file.
     public let source: String
 
@@ -23,5 +23,16 @@ public struct File: CustomStringConvertible, Equatable, ExpressibleByStringLiter
     public init(_ source: String, path: String? = nil) {
         self.source = source
         self.path = path
+    }
+}
+
+extension File: Hashable {
+    /// See `Hashable`.
+    public func hash(into hasher: inout Hasher) {
+        if let path = path {
+            hasher.combine(path)
+        } else {
+            hasher.combine(source)
+        }
     }
 }
