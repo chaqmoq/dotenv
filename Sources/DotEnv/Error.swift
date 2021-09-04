@@ -1,6 +1,6 @@
 import Foundation
 
-/// An error thrown when an environment file being loaded either doesn't exist or its content is not encodable.
+/// An error thrown when an environment file being loaded either doesn't exist or its source is not encodable.
 public struct FileError: LocalizedError, Equatable {
     /// An absolute path to an environment file where an error occured. Defaults to `nil` when an instance of `File` is created without a path.
     public let filePath: String?
@@ -30,7 +30,7 @@ public struct FileError: LocalizedError, Equatable {
     }
 }
 
-/// An error thrown when the content of an environment file being parsed is invalid.
+/// An error thrown when the source of an environment file being parsed is invalid.
 public struct SyntaxError: LocalizedError, Equatable {
     /// An absolute path to an environment file where an error occured. Defaults to `nil` when an instance of `File` is created without a path.
     public let filePath: String?
