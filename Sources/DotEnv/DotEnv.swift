@@ -17,6 +17,8 @@ public final class DotEnv {
     private var variablesCache = Cache<File, [String: String]>()
 
     /// Initializes a new instance of `DotEnv` with the default configuration.
+    ///
+    /// - Parameter configuration: A configuration for `DotEnv`.
     public init(configuration: Configuration = .init()) {
         self.configuration = configuration
         fileCache.costLimit = configuration.caching.costLimit
