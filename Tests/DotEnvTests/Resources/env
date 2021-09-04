@@ -3,6 +3,8 @@
 EMTPY=
 QUOTE="quote"
 QUOTE_WHITESPACE=" quote whitespace " # Trailing comment
+MULTI_LINE="multi
+line"
 UNQUOTED=unquoted
 UNQUOTED_WHITESPACE= unquoted whitespace
 DICTIONARY={"key": "value"}

@@ -85,6 +85,7 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(env.all["EMTPY"], "")
         XCTAssertEqual(env.all["QUOTE"], "quote")
         XCTAssertEqual(env.all["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(env.all["MULTI_LINE"], "multi\nline")
         XCTAssertEqual(env.all["UNQUOTED"], "unquoted")
         XCTAssertEqual(env.all["UNQUOTED_WHITESPACE"], "unquoted whitespace")
         XCTAssertEqual(env.all["DICTIONARY"], "{\"key\": \"value\"}")
