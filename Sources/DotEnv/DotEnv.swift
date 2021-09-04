@@ -146,20 +146,20 @@ extension DotEnv {
     /// A configuration for `DotEnv`.
     public struct Configuration {
         /// A caching configuration.
-        public let caching: CachingConfiguration
+        public let caching: Caching
 
         /// Initializes a new instance of `Configuration` with the default `caching` configuration.
         ///
         /// - Parameter caching: A caching configuration.
-        public init(caching: CachingConfiguration = .init()) {
+        public init(caching: Caching = .init()) {
             self.caching = caching
         }
     }
 }
 
-extension DotEnv {
+extension DotEnv.Configuration {
     /// A caching configuration.
-    public struct CachingConfiguration {
+    public struct Caching {
         /// Limits the amount of memory usage in RAM.
         public let costLimit: Int
 
