@@ -169,7 +169,7 @@ extension DotEnv {
         /// Indicates whether caching is enabled or not.
         public let isEnabled: Bool
 
-        /// Initializes a new instance of `CachingConfiguration` with the `costLimit` and `countLimit` parameters.
+        /// Initializes a new instance of `CachingConfiguration` with the `costLimit`, `countLimit`, and `isEnabled` parameters.
         ///
         /// - Parameters:
         ///   - costLimit: Limits the amount of memory usage in RAM. Defaults to `0` that means unlimited until the OS evicts itself due to memory
