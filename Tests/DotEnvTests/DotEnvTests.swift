@@ -76,6 +76,57 @@ final class DotEnvTests: XCTestCase {
         }
     }
 
+    func testParsingAndCachingFileAndVariables() {
+        // Arrange
+        let filePath = "\(Bundle.module.resourcePath!)/env"
+
+        // Act
+        var variables = try! env.parseFile(at: filePath) // Parses a file, get variables, and caches them
+
+        // Assert
+        XCTAssertEqual(variables.count, 9)
+        XCTAssertEqual(variables["EMTPY"], "")
+        XCTAssertEqual(variables["QUOTE"], "quote")
+        XCTAssertEqual(variables["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables["UNQUOTED"], "unquoted")
+        XCTAssertEqual(variables["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(variables["FILE_PATH"], "/to/path")
+        XCTAssertEqual(variables["lowercased"], "lowercased")
+
+        // Act
+        variables = try! env.parseFile(at: filePath) // Gets variables from cache
+
+        // Assert
+        XCTAssertEqual(variables.count, 9)
+        XCTAssertEqual(variables["EMTPY"], "")
+        XCTAssertEqual(variables["QUOTE"], "quote")
+        XCTAssertEqual(variables["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables["UNQUOTED"], "unquoted")
+        XCTAssertEqual(variables["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(variables["FILE_PATH"], "/to/path")
+        XCTAssertEqual(variables["lowercased"], "lowercased")
+
+        // Act
+        env.clearCache() // Clears cache
+        variables = try! env.parseFile(at: filePath) // Parses a file, get variables, and caches them
+
+        // Assert
+        XCTAssertEqual(variables.count, 9)
+        XCTAssertEqual(variables["EMTPY"], "")
+        XCTAssertEqual(variables["QUOTE"], "quote")
+        XCTAssertEqual(variables["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables["UNQUOTED"], "unquoted")
+        XCTAssertEqual(variables["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(variables["FILE_PATH"], "/to/path")
+        XCTAssertEqual(variables["lowercased"], "lowercased")
+    }
+
     func testLoadingFile() {
         // Arrange
         let filePath = "\(Bundle.module.resourcePath!)/env"
