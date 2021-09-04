@@ -14,12 +14,15 @@ public final class DotEnv {
     public var configuration: Configuration
 
     private var fileCache = Cache<String, File>()
+    private var variablesCache = Cache<File, [String: String]>()
 
     /// Initializes a new instance of `DotEnv` with the default configuration.
     public init(configuration: Configuration = .init()) {
         self.configuration = configuration
         fileCache.costLimit = configuration.caching.costLimit
         fileCache.countLimit = configuration.caching.countLimit
+        variablesCache.costLimit = configuration.caching.costLimit
+        variablesCache.countLimit = configuration.caching.countLimit
     }
 
     /// Reads the content of an environment file or throws `FileError`.
@@ -49,7 +52,11 @@ public final class DotEnv {
     /// - Throws: `SyntaxError` if the content of an environment file is invalid.
     /// - Returns: A list of all environment variables from an environment file.
     public func parseFile(_ file: File) throws -> [String: String] {
-        try Parser(file: file).parse()
+        if configuration.caching.isEnabled, let variables = variablesCache.getValue(forKey: file) { return variables }
+        let variables = try Parser(file: file).parse()
+        if configuration.caching.isEnabled { variablesCache.setValue(variables, forKey: file) }
+
+        return variables
     }
 
     /// Reads, parses, and extracts environment variables from the content of an environment file or throws either `FileError` or `SyntaxError`.
