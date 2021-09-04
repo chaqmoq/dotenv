@@ -114,3 +114,31 @@ public final class DotEnv {
         set { set(newValue, forKey: key) }
     }
 }
+
+extension DotEnv {
+    /// A caching configuration.
+    public struct CachingConfiguration {
+        /// Limits the amount of memory usage in RAM.
+        public let costLimit: Int
+
+        /// Limits the number of objects in RAM.
+        public let countLimit: Int
+
+        /// Indicates whether caching is enabled or not.
+        public let isEnabled: Bool
+
+        /// Initializes a new instance of `CachingConfiguration` with the `costLimit` and `countLimit` parameters.
+        ///
+        /// - Parameters:
+        ///   - costLimit: Limits the amount of memory usage in RAM. Defaults to `0` that means unlimited until the OS evicts itself due to memory
+        ///   pressure.
+        ///   - countLimit: Limits the number of objects in RAM. Defaults to `0` that means unlimited until the OS evicts itself due to memory
+        ///   pressure.
+        ///   - isEnabled: Indicates whether caching is enabled or not. Defaults to `true`.
+        public init(costLimit: Int = 0, countLimit: Int = 0, isEnabled: Bool = true) {
+            self.costLimit = costLimit
+            self.countLimit = countLimit
+            self.isEnabled = isEnabled
+        }
+    }
+}
