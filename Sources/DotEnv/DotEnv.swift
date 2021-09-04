@@ -132,6 +132,12 @@ public final class DotEnv {
         get { get(key) }
         set { set(newValue, forKey: key) }
     }
+
+    /// Clears memory cache.
+    public func clearCache() {
+        fileCache.clear()
+        variablesCache.clear()
+    }
 }
 
 extension DotEnv {
