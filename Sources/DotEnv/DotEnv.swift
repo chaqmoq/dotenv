@@ -172,9 +172,9 @@ extension DotEnv {
         /// Initializes a new instance of `CachingConfiguration` with the `costLimit`, `countLimit`, and `isEnabled` parameters.
         ///
         /// - Parameters:
-        ///   - costLimit: Limits the amount of memory usage in RAM. Defaults to `0` which means unlimited. But, an OS can evict objects itself due
-        ///   to memory pressure.
-        ///   - countLimit: Limits the number of objects in RAM. Defaults to `0` which means unlimited. But, an OS can evict objects itself due to
+        ///   - costLimit: Limits the amount of memory usage in RAM. Defaults to `0` which means unlimited. But, an OS can evict objects anytime
+        ///   due to memory pressure.
+        ///   - countLimit: Limits the number of objects in RAM. Defaults to `0` which means unlimited. But, an OS can evict objects anytime due to
         ///   memory pressure.
         ///   - isEnabled: Indicates whether caching is enabled or not. Defaults to `true`.
         public init(costLimit: Int = 0, countLimit: Int = 0, isEnabled: Bool = true) {
