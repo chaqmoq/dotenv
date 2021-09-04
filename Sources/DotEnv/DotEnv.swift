@@ -16,7 +16,7 @@ public final class DotEnv {
     private var fileCache = Cache<String, File>()
     private var variablesCache = Cache<File, [String: String]>()
 
-    /// Initializes a new instance of `DotEnv` with the default configuration.
+    /// Initializes a new instance of `DotEnv` with the default `configuration`.
     ///
     /// - Parameter configuration: A configuration for `DotEnv`.
     public init(configuration: Configuration = .init()) {
@@ -27,12 +27,12 @@ public final class DotEnv {
         variablesCache.countLimit = configuration.caching.countLimit
     }
 
-    /// Reads the content of an environment file or throws `FileError`.
+    /// Reads the source of an environment file or throws `FileError`.
     ///
     /// - Parameter path: An absolute path to an environment file in the file system.
     /// - Parameters:
     ///   - path: An absolute path to an environment file in the file system.
-    ///   - encoding: A content encoding. Defaults to `utf8`.
+    ///   - encoding: An encoding for the source. Defaults to `utf8`.
     /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable.
     /// - Returns: An instance of `File`.
     public func readFile(at path: String, encoding: String.Encoding = .utf8) throws -> File {
@@ -48,10 +48,10 @@ public final class DotEnv {
         return file
     }
 
-    /// Parses and extracts environment variables from the content of an environment file or throws `SyntaxError`.
+    /// Parses and extracts environment variables from the source of an environment file or throws `SyntaxError`.
     ///
     /// - Parameter file: An instance of `File`.
-    /// - Throws: `SyntaxError` if the content of an environment file is invalid.
+    /// - Throws: `SyntaxError` if the source of an environment file is invalid.
     /// - Returns: A list of all environment variables from an environment file.
     public func parseFile(_ file: File) throws -> [String: String] {
         if configuration.caching.isEnabled, let variables = variablesCache.getValue(forKey: file) { return variables }
@@ -61,22 +61,22 @@ public final class DotEnv {
         return variables
     }
 
-    /// Reads, parses, and extracts environment variables from the content of an environment file or throws either `FileError` or `SyntaxError`.
+    /// Reads, parses, and extracts environment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
     ///
     /// - Parameter path: An absolute path to an environment file.
-    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the content of
+    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the source of
     /// an environment file is invalid.
     /// - Returns: A list of all environment variables in an environment file.
     public func parseFile(at path: String) throws -> [String: String] {
         try parseFile(try readFile(at: path))
     }
 
-    /// Reads, parses, extracts, and set enviroment variables from the content of an environment file or throws either `FileError` or `SyntaxError`.
+    /// Reads, parses, extracts, and sets enviroment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
     ///
     /// - Parameters:
     ///   - path: An absolute path to an environment file.
     ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
-    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the content of
+    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the source of
     /// an environment file is invalid.
     public func load(atPath path: String, overwrite: Bool = true) throws {
         let variables = try parseFile(at: path)
@@ -87,7 +87,7 @@ public final class DotEnv {
     ///
     /// - Parameters:
     ///     - key: The key of an environment variable.
-    ///     - encoding: A value encoding. Defaults to `utf8`.
+    ///     - encoding: An encoding for the value. Defaults to `utf8`.
     /// - Returns: The value of an environment variable if an environment variable exists.
     public func get(_ key: String, encoding: String.Encoding = .utf8) -> String? {
         guard let value = getenv(key) else { return nil }
@@ -109,7 +109,7 @@ public final class DotEnv {
     ///
     /// - Parameters:
     ///   - variables: `[key: value]` pairs of environment variables.
-    ///   - overwrite: A boolean value to indicate whether to overwrite values of the existing environment variables or not. Defaults to `true`.
+    ///   - overwrite: A boolean value to indicate whether to overwrite the values of the existing environment variables or not. Defaults to `true`.
     public func set(_ variables: [String: String], overwrite: Bool = true) {
         for (key, value) in variables { set(value, forKey: key, overwrite: overwrite) }
     }
@@ -135,7 +135,7 @@ public final class DotEnv {
         set { set(newValue, forKey: key) }
     }
 
-    /// Clears memory cache.
+    /// Clears cached files and variables.
     public func clearCache() {
         fileCache.clear()
         variablesCache.clear()
