@@ -129,6 +129,19 @@ final class DotEnvTests: XCTestCase {
 
     func testLoadingFile() {
         // Arrange
+        let file: File = """
+        DATABASE_USER=root
+        DATABASE_PASSWORD=password
+        """
+
+        // Act/Assert
+        XCTAssertNoThrow(try env.load(file))
+        XCTAssertEqual(env.all["DATABASE_USER"], "root")
+        XCTAssertEqual(env.all["DATABASE_PASSWORD"], "password")
+    }
+
+    func testLoadingFileAtPath() {
+        // Arrange
         let filePath = "\(Bundle.module.resourcePath!)/env"
 
         // Act/Assert

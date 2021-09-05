@@ -71,6 +71,18 @@ public final class DotEnv {
         try parseFile(try readFile(at: path))
     }
 
+    /// Parses, extracts, and sets enviroment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
+    ///
+    /// - Parameters:
+    ///   - file: An instance of `File`.
+    ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
+    /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the source of
+    /// an environment file is invalid.
+    public func load(_ file: File, overwrite: Bool = true) throws {
+        let variables = try parseFile(file)
+        set(variables, overwrite: overwrite)
+    }
+
     /// Reads, parses, extracts, and sets enviroment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
     ///
     /// - Parameters:
