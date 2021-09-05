@@ -63,12 +63,14 @@ public final class DotEnv {
 
     /// Reads, parses, and extracts environment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
     ///
-    /// - Parameter path: An absolute path to an environment file.
+    /// - Parameters:
+    ///   - path: An absolute path to an environment file in the file system.
+    ///   - encoding: An encoding for the source. Defaults to `utf8`.
     /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the source of
     /// an environment file is invalid.
     /// - Returns: A list of all environment variables in an environment file.
-    public func parseFile(at path: String) throws -> [String: String] {
-        try parseFile(try readFile(at: path))
+    public func parseFile(at path: String, encoding: String.Encoding = .utf8) throws -> [String: String] {
+        try parseFile(try readFile(at: path, encoding: encoding))
     }
 
     /// Parses, extracts, and sets enviroment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
@@ -86,12 +88,13 @@ public final class DotEnv {
     /// Reads, parses, extracts, and sets enviroment variables from the source of an environment file or throws either `FileError` or `SyntaxError`.
     ///
     /// - Parameters:
-    ///   - path: An absolute path to an environment file.
+    ///   - path: An absolute path to an environment file in the file system.
+    ///   - encoding: An encoding for the source. Defaults to `utf8`.
     ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
     /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the source of
     /// an environment file is invalid.
-    public func load(at path: String, overwrite: Bool = true) throws {
-        let variables = try parseFile(at: path)
+    public func load(at path: String, encoding: String.Encoding = .utf8, overwrite: Bool = true) throws {
+        let variables = try parseFile(at: path, encoding: encoding)
         set(variables, overwrite: overwrite)
     }
 
