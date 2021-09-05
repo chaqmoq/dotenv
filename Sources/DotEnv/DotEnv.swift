@@ -78,7 +78,7 @@ public final class DotEnv {
     ///   - overwrite: A boolean value to indicate whether to overwrite the value of the existing environment variable or not. Defaults to `true`.
     /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable or `SyntaxError` if the source of
     /// an environment file is invalid.
-    public func load(atPath path: String, overwrite: Bool = true) throws {
+    public func load(at path: String, overwrite: Bool = true) throws {
         let variables = try parseFile(at: path)
         set(variables, overwrite: overwrite)
     }

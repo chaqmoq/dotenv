@@ -132,7 +132,7 @@ final class DotEnvTests: XCTestCase {
         let filePath = "\(Bundle.module.resourcePath!)/env"
 
         // Act/Assert
-        XCTAssertNoThrow(try env.load(atPath: filePath))
+        XCTAssertNoThrow(try env.load(at: filePath))
         XCTAssertEqual(env.all["EMTPY"], "")
         XCTAssertEqual(env.all["QUOTE"], "quote")
         XCTAssertEqual(env.all["QUOTE_WHITESPACE"], " quote whitespace ")
