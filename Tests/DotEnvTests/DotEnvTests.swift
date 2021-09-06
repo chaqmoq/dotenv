@@ -44,7 +44,7 @@ final class DotEnvTests: XCTestCase {
 
     func testParsingFileWithInvalidVariableValue() {
         // Arrange
-        let filePath = "\(Bundle.module.resourcePath!)/invalid.env"
+        let filePath = "\(Bundle.module.resourcePath!)/env.invalid"
         let file = try! env.readFile(at: filePath)
         let variable = file.source.trimmingCharacters(in: .newlines)
         let line = 1
