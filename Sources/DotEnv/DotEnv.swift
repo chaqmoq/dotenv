@@ -7,7 +7,7 @@ import Darwin
 
 /// Reads, parses, loads, and caches environment files and variables
 public final class DotEnv {
-    /// All system and user-defined environment variables.
+    /// All read-only system and user-defined environment variables.
     public var all: [String: String] { ProcessInfo.processInfo.environment }
 
     /// A configuration for `DotEnv`.
