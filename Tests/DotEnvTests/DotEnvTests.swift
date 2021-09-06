@@ -86,13 +86,13 @@ final class DotEnvTests: XCTestCase {
         // Assert
         XCTAssertEqual(variables.count, 9)
         XCTAssertEqual(variables["EMTPY"], "")
-        XCTAssertEqual(variables["QUOTE"], "quote")
-        XCTAssertEqual(variables["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(variables["QUOTED"], "quoted")
+        XCTAssertEqual(variables["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
         XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
         XCTAssertEqual(variables["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(variables["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
         XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables["FILE_PATH"], "/to/path")
+        XCTAssertEqual(variables["PATH"], "/path/to")
         XCTAssertEqual(variables["lowercased"], "lowercased")
 
         // Act
@@ -101,13 +101,13 @@ final class DotEnvTests: XCTestCase {
         // Assert
         XCTAssertEqual(variables.count, 9)
         XCTAssertEqual(variables["EMTPY"], "")
-        XCTAssertEqual(variables["QUOTE"], "quote")
-        XCTAssertEqual(variables["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(variables["QUOTED"], "quoted")
+        XCTAssertEqual(variables["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
         XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
         XCTAssertEqual(variables["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(variables["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
         XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables["FILE_PATH"], "/to/path")
+        XCTAssertEqual(variables["PATH"], "/path/to")
         XCTAssertEqual(variables["lowercased"], "lowercased")
 
         // Act
@@ -117,13 +117,13 @@ final class DotEnvTests: XCTestCase {
         // Assert
         XCTAssertEqual(variables.count, 9)
         XCTAssertEqual(variables["EMTPY"], "")
-        XCTAssertEqual(variables["QUOTE"], "quote")
-        XCTAssertEqual(variables["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(variables["QUOTED"], "quoted")
+        XCTAssertEqual(variables["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
         XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
         XCTAssertEqual(variables["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(variables["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
         XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables["FILE_PATH"], "/to/path")
+        XCTAssertEqual(variables["PATH"], "/path/to")
         XCTAssertEqual(variables["lowercased"], "lowercased")
     }
 
@@ -147,13 +147,13 @@ final class DotEnvTests: XCTestCase {
         // Act/Assert
         XCTAssertNoThrow(try env.load(at: filePath))
         XCTAssertEqual(env.all["EMTPY"], "")
-        XCTAssertEqual(env.all["QUOTE"], "quote")
-        XCTAssertEqual(env.all["QUOTE_WHITESPACE"], " quote whitespace ")
+        XCTAssertEqual(env.all["QUOTED"], "quoted")
+        XCTAssertEqual(env.all["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
         XCTAssertEqual(env.all["MULTI_LINE"], "multi\nline")
         XCTAssertEqual(env.all["UNQUOTED"], "unquoted")
-        XCTAssertEqual(env.all["UNQUOTED_WHITESPACE"], "unquoted whitespace")
+        XCTAssertEqual(env.all["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
         XCTAssertEqual(env.all["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(env.all["FILE_PATH"], "/to/path")
+        XCTAssertEqual(env.all["PATH"], "/path/to")
         XCTAssertEqual(env.all["lowercased"], "lowercased")
     }
 

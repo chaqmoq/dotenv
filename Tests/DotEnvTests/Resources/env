@@ -1,12 +1,12 @@
 # Comment
 
 EMTPY=
-QUOTE="quote"
-QUOTE_WHITESPACE=" quote whitespace " # Trailing comment
+QUOTED="quoted"
+QUOTED_WITH_WHITESPACE=" quoted with whitespace " # Trailing comment
 MULTI_LINE="multi
 line"
 UNQUOTED=unquoted
-UNQUOTED_WHITESPACE= unquoted whitespace
+UNQUOTED_WITH_WHITESPACE= unquoted with whitespace
 DICTIONARY={"key": "value"}
-FILE_PATH=/to/path
+PATH=/path/to
 lowercased=lowercased
