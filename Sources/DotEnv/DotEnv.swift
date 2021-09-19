@@ -5,7 +5,7 @@ import Glibc
 import Darwin
 #endif
 
-/// Reads, parses, loads, and caches environment files and variables
+/// Reads, parses, loads, and caches environment files and variables.
 public final class DotEnv {
     /// All read-only system and user-defined environment variables.
     public var all: [String: String] { ProcessInfo.processInfo.environment }
