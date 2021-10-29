@@ -100,13 +100,10 @@ public final class DotEnv {
 
     /// Gets an environment variable.
     ///
-    /// - Parameters:
-    ///     - key: The key of an environment variable.
-    ///     - encoding: An encoding for the value. Defaults to `utf8`.
+    /// - Parameter key: The key of an environment variable.
     /// - Returns: The value of an environment variable if an environment variable exists.
-    public func get(_ key: String, encoding: String.Encoding = .utf8) -> String? {
-        guard let value = getenv(key) else { return nil }
-        return String(cString: value, encoding: encoding)
+    public func get(_ key: String) -> String? {
+        all[key]
     }
 
     /// Sets an environment variable.
