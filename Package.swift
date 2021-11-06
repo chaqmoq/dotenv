@@ -4,13 +4,19 @@ import PackageDescription
 
 let package = Package(
     name: "chaqmoq-dotenv",
-    products: [.library(name: "DotEnv", targets: ["DotEnv"])],
+    products: [
+        .library(name: "ChaqmoqDotEnv", targets: ["DotEnv"])
+    ],
     targets: [
         .target(name: "DotEnv"),
         .testTarget(
             name: "DotEnvTests",
-            dependencies: [.target(name: "DotEnv")],
-            resources: [.process("Resources")]
+            dependencies: [
+                .target(name: "DotEnv")
+            ],
+            resources: [
+                .process("Resources")
+            ]
         )
     ],
     swiftLanguageVersions: [.v5]
