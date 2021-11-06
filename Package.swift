@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "chaqmoq-dotenv",
     products: [
-        .library(name: "ChaqmoqDotEnv", targets: ["DotEnv"])
+        .library(name: "DotEnv", targets: ["DotEnv"])
     ],
     targets: [
         .target(name: "DotEnv"),
