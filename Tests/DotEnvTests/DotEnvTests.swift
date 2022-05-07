@@ -3,7 +3,11 @@ import XCTest
 
 final class DotEnvTests: XCTestCase {
     let env = DotEnv()
+    let multilineVariableValue = "multi\nline"
     let nonExistingFilePath = "/non-existing.env"
+    let pathVariableValue = "/path/to"
+    let quotedVariableValue = " quoted with whitespace "
+    let unquotedVariableValue = "unquoted with whitespace"
 
     override func setUp() {
         super.setUp()
@@ -84,12 +88,12 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(variables?.count, 9)
         XCTAssertEqual(variables?["EMTPY"], "")
         XCTAssertEqual(variables?["QUOTED"], "quoted")
-        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(variables?["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], quotedVariableValue)
+        XCTAssertEqual(variables?["MULTI_LINE"], multilineVariableValue)
         XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], unquotedVariableValue)
         XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables?["PATH"], "/path/to")
+        XCTAssertEqual(variables?["PATH"], pathVariableValue)
         XCTAssertEqual(variables?["lowercased"], "lowercased")
 
         // Act/Assert
@@ -97,12 +101,12 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(variables?.count, 9)
         XCTAssertEqual(variables?["EMTPY"], "")
         XCTAssertEqual(variables?["QUOTED"], "quoted")
-        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(variables?["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], quotedVariableValue)
+        XCTAssertEqual(variables?["MULTI_LINE"], multilineVariableValue)
         XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], unquotedVariableValue)
         XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables?["PATH"], "/path/to")
+        XCTAssertEqual(variables?["PATH"], pathVariableValue)
         XCTAssertEqual(variables?["lowercased"], "lowercased")
 
         // Act
@@ -113,12 +117,12 @@ final class DotEnvTests: XCTestCase {
         XCTAssertEqual(variables?.count, 9)
         XCTAssertEqual(variables?["EMTPY"], "")
         XCTAssertEqual(variables?["QUOTED"], "quoted")
-        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(variables?["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], quotedVariableValue)
+        XCTAssertEqual(variables?["MULTI_LINE"], multilineVariableValue)
         XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], unquotedVariableValue)
         XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables?["PATH"], "/path/to")
+        XCTAssertEqual(variables?["PATH"], pathVariableValue)
         XCTAssertEqual(variables?["lowercased"], "lowercased")
     }
 
@@ -143,12 +147,12 @@ final class DotEnvTests: XCTestCase {
         XCTAssertNoThrow(try env.load(at: filePath))
         XCTAssertEqual(env.all["EMTPY"], "")
         XCTAssertEqual(env.all["QUOTED"], "quoted")
-        XCTAssertEqual(env.all["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(env.all["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(env.all["QUOTED_WITH_WHITESPACE"], quotedVariableValue)
+        XCTAssertEqual(env.all["MULTI_LINE"], multilineVariableValue)
         XCTAssertEqual(env.all["UNQUOTED"], "unquoted")
-        XCTAssertEqual(env.all["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(env.all["UNQUOTED_WITH_WHITESPACE"], unquotedVariableValue)
         XCTAssertEqual(env.all["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(env.all["PATH"], "/path/to")
+        XCTAssertEqual(env.all["PATH"], pathVariableValue)
         XCTAssertEqual(env.all["lowercased"], "lowercased")
     }
 
