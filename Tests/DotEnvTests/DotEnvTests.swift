@@ -81,36 +81,21 @@ final class DotEnvTests: XCTestCase {
     func testParsingAndCachingFileAndVariables() {
         // Arrange
         let filePath = "\(Bundle.module.resourcePath!)/env"
-        var variables: [String: String]?
 
-        // Act/Assert
-        XCTAssertNoThrow(variables = try env.parseFile(at: filePath))
-        XCTAssertEqual(variables?.count, 9)
-        XCTAssertEqual(variables?["EMTPY"], "")
-        XCTAssertEqual(variables?["QUOTED"], "quoted")
-        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], quotedVariableValue)
-        XCTAssertEqual(variables?["MULTI_LINE"], multilineVariableValue)
-        XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], unquotedVariableValue)
-        XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables?["PATH"], pathVariableValue)
-        XCTAssertEqual(variables?["lowercased"], "lowercased")
-
-        // Act/Assert
-        XCTAssertNoThrow(variables = try env.parseFile(at: filePath))
-        XCTAssertEqual(variables?.count, 9)
-        XCTAssertEqual(variables?["EMTPY"], "")
-        XCTAssertEqual(variables?["QUOTED"], "quoted")
-        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], quotedVariableValue)
-        XCTAssertEqual(variables?["MULTI_LINE"], multilineVariableValue)
-        XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], unquotedVariableValue)
-        XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables?["PATH"], pathVariableValue)
-        XCTAssertEqual(variables?["lowercased"], "lowercased")
+        // Assert
+        assertVariables(for: filePath)
+        assertVariables(for: filePath)
 
         // Act
         env.clearCache()
+
+        // Assert
+        assertVariables(for: filePath)
+    }
+
+    func assertVariables(for filePath: String) {
+        // Arrange
+        var variables: [String: String]?
 
         // Act/Assert
         XCTAssertNoThrow(variables = try env.parseFile(at: filePath))
