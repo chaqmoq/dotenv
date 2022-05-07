@@ -4,8 +4,9 @@ import XCTest
 final class FileTests: XCTestCase {
     let source = """
     DATABASE_USER=root
-    DATABASE_PASSWORD=password
+    DATABASE=dev
     """
+    let path = "/.env"
 
     func testInitWithStringLiteral() {
         // Act
@@ -19,7 +20,6 @@ final class FileTests: XCTestCase {
 
     func testInitWithPath() {
         // Act
-        let path = "/.env"
         let file = File(source, path: path)
 
         // Assert

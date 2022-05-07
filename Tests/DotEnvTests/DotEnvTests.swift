@@ -131,13 +131,13 @@ final class DotEnvTests: XCTestCase {
         // Arrange
         let file: File = """
         DATABASE_USER=root
-        DATABASE_PASSWORD=password
+        DATABASE=dev
         """
 
         // Act/Assert
         XCTAssertNoThrow(try env.load(file))
         XCTAssertEqual(env.all["DATABASE_USER"], "root")
-        XCTAssertEqual(env.all["DATABASE_PASSWORD"], "password")
+        XCTAssertEqual(env.all["DATABASE"], "dev")
     }
 
     func testLoadingFileAtPath() {
