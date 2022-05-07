@@ -36,14 +36,20 @@ public final class DotEnv {
     /// - Throws: `FileError` if an environment file being loaded either doesn't exist or is not encodable.
     /// - Returns: An instance of `File`.
     public func readFile(at path: String, encoding: String.Encoding = .utf8) throws -> File {
-        if configuration.caching.isEnabled, let file = fileCache.getValue(forKey: path) { return file }
+        if configuration.caching.isEnabled, let file = fileCache.getValue(forKey: path) {
+            return file
+        }
+
         let fileManager = FileManager.default
         guard let data = fileManager.contents(atPath: path) else { throw fileError(.fileNotFound, filePath: path) }
         guard let source = String(data: data, encoding: encoding) else {
             throw fileError(.fileNotEncodable, filePath: path)
         }
         let file = File(source, path: path)
-        if configuration.caching.isEnabled { fileCache.setValue(file, forKey: path) }
+
+        if configuration.caching.isEnabled {
+            fileCache.setValue(file, forKey: path)
+        }
 
         return file
     }
@@ -54,9 +60,15 @@ public final class DotEnv {
     /// - Throws: `SyntaxError` if the source of an environment file is invalid.
     /// - Returns: A list of all environment variables from an environment file.
     public func parseFile(_ file: File) throws -> [String: String] {
-        if configuration.caching.isEnabled, let variables = variablesCache.getValue(forKey: file) { return variables }
+        if configuration.caching.isEnabled, let variables = variablesCache.getValue(forKey: file) {
+            return variables
+        }
+
         let variables = try Parser(file: file).parse()
-        if configuration.caching.isEnabled { variablesCache.setValue(variables, forKey: file) }
+
+        if configuration.caching.isEnabled {
+            variablesCache.setValue(variables, forKey: file)
+        }
 
         return variables
     }
@@ -123,7 +135,9 @@ public final class DotEnv {
     ///   - variables: `[key: value]` pairs of environment variables.
     ///   - overwrite: A boolean value to indicate whether to overwrite the values of the existing environment variables or not. Defaults to `true`.
     public func set(_ variables: [String: String], overwrite: Bool = true) {
-        for (key, value) in variables { set(value, forKey: key, overwrite: overwrite) }
+        for (key, value) in variables {
+            set(value, forKey: key, overwrite: overwrite)
+        }
     }
 
     /// Removes a user-defined environment variable.
@@ -135,7 +149,9 @@ public final class DotEnv {
 
     /// Removes all user-defined environment variables.
     public func reset() {
-        for key in all.keys { unset(key) }
+        for key in all.keys {
+            unset(key)
+        }
     }
 
     /// Gets or sets an environment variable.

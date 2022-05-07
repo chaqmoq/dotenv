@@ -7,7 +7,7 @@ final class Parser {
     private var current = 0
     private var line = 1
     private var column = 0
-    private var variables: [String: String] = .init()
+    private var variables = [String: String]()
 
     init(file: File) {
         self.file = file
@@ -80,7 +80,9 @@ extension Parser {
     }
 
     private func skipUntilNewline() {
-        while peek() != Token.newline.rawValue, !isAtEnd { skip() }
+        while peek() != Token.newline.rawValue, !isAtEnd {
+            skip()
+        }
     }
 
     private func skipWhileNeeded() {
@@ -89,7 +91,10 @@ extension Parser {
             Token.tab.rawValue,
             Token.whitespace.rawValue
         ]
-        while characters.contains(peek()) { skip() }
+
+        while characters.contains(peek()) {
+            skip()
+        }
     }
 
     private func nextLine() {
@@ -107,16 +112,25 @@ extension Parser {
     }
 
     private func advanceUntilQuoteOrRaiseError() throws {
-        while peek() != Token.quote.rawValue, !isAtEnd { advance() }
-        if isAtEnd { throw syntaxError(.unterminatedString, filePath: file.path, line: line, column: column) }
+        while peek() != Token.quote.rawValue, !isAtEnd {
+            advance()
+        }
+
+        if isAtEnd {
+            throw syntaxError(.unterminatedString, filePath: file.path, line: line, column: column)
+        }
     }
 
     private func advanceWhileAlphaNumeric() {
-        while isAlphaNumeric(peek()) { advance() }
+        while isAlphaNumeric(peek()) {
+            advance()
+        }
     }
 
     private func advanceUntilNewlineOrComment() {
-        while peek() != Token.newline.rawValue, peek() != Token.comment.rawValue, !isAtEnd { advance() }
+        while peek() != Token.newline.rawValue, peek() != Token.comment.rawValue, !isAtEnd {
+            advance()
+        }
     }
 
     private func isAlpha(_ character: String) -> Bool {
@@ -140,7 +154,10 @@ extension Parser {
     }
 
     private func substring(from start: Int, to end: Int) -> String {
-        if start < 0 || end < 0 || start > end || start > count { return Token.eof.rawValue }
+        if start < 0 || end < 0 || start > end || start > count {
+            return Token.eof.rawValue
+        }
+
         let end = end > count ? count : end
         let source = file.source
         let lowerBound = source.index(source.startIndex, offsetBy: start)
