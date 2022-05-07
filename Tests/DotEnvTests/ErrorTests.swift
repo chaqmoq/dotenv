@@ -2,6 +2,8 @@
 import XCTest
 
 final class FileErrorTests: XCTestCase {
+    let filePath = "/.env"
+
     func testInit() {
         // Act
         let error = FileError()
@@ -17,7 +19,6 @@ final class FileErrorTests: XCTestCase {
 
     func testInitWithMessageAndFilePath() {
         // Arrange
-        let filePath = "/.env"
         let message = ErrorType.fileNotFound.message
 
         // Act
@@ -33,7 +34,6 @@ final class FileErrorTests: XCTestCase {
 
     func testInitWithErrorTypeAndFilePath() {
         // Arrange
-        let filePath = "/.env"
         let errorType = ErrorType.fileNotFound
         let message = errorType.message
 
@@ -51,6 +51,8 @@ final class FileErrorTests: XCTestCase {
 }
 
 final class SyntaxErrorTests: XCTestCase {
+    let filePath = "/.env"
+
     func testInit() {
         // Arrange
         let line = 1
@@ -75,7 +77,6 @@ final class SyntaxErrorTests: XCTestCase {
         let line = 1
         let column = 1
         let message = ErrorType.invalidVariableValue("DATABASE_USER").message
-        let filePath = "/.env"
 
         // Act
         let error = SyntaxError(message, filePath: filePath, line: line, column: column)
@@ -97,7 +98,6 @@ final class SyntaxErrorTests: XCTestCase {
         let column = 1
         let errorType = ErrorType.invalidVariableValue("DATABASE_USER")
         let message = errorType.message
-        let filePath = "/.env"
 
         // Act
         let error = SyntaxError(errorType, filePath: filePath, line: line, column: column)

@@ -3,6 +3,7 @@ import XCTest
 
 final class DotEnvTests: XCTestCase {
     let env = DotEnv()
+    let nonExistingFilePath = "/non-existing.env"
 
     override func setUp() {
         super.setUp()
@@ -11,14 +12,11 @@ final class DotEnvTests: XCTestCase {
     }
 
     func testReadingNonExistingFile() {
-        // Arrange
-        let filePath = "/non-existing.env"
-
         // Act/Assert
-        XCTAssertThrowsError(try env.readFile(at: filePath)) { error in
+        XCTAssertThrowsError(try env.readFile(at: nonExistingFilePath)) { error in
             XCTAssertTrue(error is FileError)
             XCTAssertEqual(error.localizedDescription, """
-            [File: "\(filePath)"] \(String(describing: FileError.self)): \(ErrorType.fileNotFound.message)
+            [File: "\(nonExistingFilePath)"] \(String(describing: FileError.self)): \(ErrorType.fileNotFound.message)
             """)
         }
     }
@@ -79,52 +77,49 @@ final class DotEnvTests: XCTestCase {
     func testParsingAndCachingFileAndVariables() {
         // Arrange
         let filePath = "\(Bundle.module.resourcePath!)/env"
+        var variables: [String: String]?
+
+        // Act/Assert
+        XCTAssertNoThrow(variables = try env.parseFile(at: filePath))
+        XCTAssertEqual(variables?.count, 9)
+        XCTAssertEqual(variables?["EMTPY"], "")
+        XCTAssertEqual(variables?["QUOTED"], "quoted")
+        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
+        XCTAssertEqual(variables?["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
+        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(variables?["PATH"], "/path/to")
+        XCTAssertEqual(variables?["lowercased"], "lowercased")
+
+        // Act/Assert
+        XCTAssertNoThrow(variables = try env.parseFile(at: filePath))
+        XCTAssertEqual(variables?.count, 9)
+        XCTAssertEqual(variables?["EMTPY"], "")
+        XCTAssertEqual(variables?["QUOTED"], "quoted")
+        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
+        XCTAssertEqual(variables?["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
+        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(variables?["PATH"], "/path/to")
+        XCTAssertEqual(variables?["lowercased"], "lowercased")
 
         // Act
-        var variables = try! env.parseFile(at: filePath) // Parses a file, get variables, and caches them
+        env.clearCache()
 
-        // Assert
-        XCTAssertEqual(variables.count, 9)
-        XCTAssertEqual(variables["EMTPY"], "")
-        XCTAssertEqual(variables["QUOTED"], "quoted")
-        XCTAssertEqual(variables["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
-        XCTAssertEqual(variables["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
-        XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables["PATH"], "/path/to")
-        XCTAssertEqual(variables["lowercased"], "lowercased")
-
-        // Act
-        variables = try! env.parseFile(at: filePath) // Gets variables from cache
-
-        // Assert
-        XCTAssertEqual(variables.count, 9)
-        XCTAssertEqual(variables["EMTPY"], "")
-        XCTAssertEqual(variables["QUOTED"], "quoted")
-        XCTAssertEqual(variables["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
-        XCTAssertEqual(variables["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
-        XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables["PATH"], "/path/to")
-        XCTAssertEqual(variables["lowercased"], "lowercased")
-
-        // Act
-        env.clearCache() // Clears cache
-        variables = try! env.parseFile(at: filePath) // Parses a file, get variables, and caches them
-
-        // Assert
-        XCTAssertEqual(variables.count, 9)
-        XCTAssertEqual(variables["EMTPY"], "")
-        XCTAssertEqual(variables["QUOTED"], "quoted")
-        XCTAssertEqual(variables["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
-        XCTAssertEqual(variables["MULTI_LINE"], "multi\nline")
-        XCTAssertEqual(variables["UNQUOTED"], "unquoted")
-        XCTAssertEqual(variables["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
-        XCTAssertEqual(variables["DICTIONARY"], "{\"key\": \"value\"}")
-        XCTAssertEqual(variables["PATH"], "/path/to")
-        XCTAssertEqual(variables["lowercased"], "lowercased")
+        // Act/Assert
+        XCTAssertNoThrow(variables = try env.parseFile(at: filePath))
+        XCTAssertEqual(variables?.count, 9)
+        XCTAssertEqual(variables?["EMTPY"], "")
+        XCTAssertEqual(variables?["QUOTED"], "quoted")
+        XCTAssertEqual(variables?["QUOTED_WITH_WHITESPACE"], " quoted with whitespace ")
+        XCTAssertEqual(variables?["MULTI_LINE"], "multi\nline")
+        XCTAssertEqual(variables?["UNQUOTED"], "unquoted")
+        XCTAssertEqual(variables?["UNQUOTED_WITH_WHITESPACE"], "unquoted with whitespace")
+        XCTAssertEqual(variables?["DICTIONARY"], "{\"key\": \"value\"}")
+        XCTAssertEqual(variables?["PATH"], "/path/to")
+        XCTAssertEqual(variables?["lowercased"], "lowercased")
     }
 
     func testLoadingFile() {

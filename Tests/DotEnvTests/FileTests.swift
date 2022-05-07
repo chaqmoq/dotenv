@@ -6,7 +6,7 @@ final class FileTests: XCTestCase {
     DATABASE_USER=root
     DATABASE=dev
     """
-    let path = "/.env"
+    let filePath = "/.env"
 
     func testInitWithStringLiteral() {
         // Act
@@ -20,11 +20,11 @@ final class FileTests: XCTestCase {
 
     func testInitWithPath() {
         // Act
-        let file = File(source, path: path)
+        let file = File(source, path: filePath)
 
         // Assert
         XCTAssertEqual(file.source, source)
         XCTAssertEqual(file.description, source)
-        XCTAssertEqual(file.path, path)
+        XCTAssertEqual(file.path, filePath)
     }
 }
