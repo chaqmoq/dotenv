@@ -15,6 +15,20 @@ final class DotEnvTests: XCTestCase {
         env.reset()
     }
 
+    func testReading1() {
+        // Arrange
+        let filePath = "\(Bundle.module.resourcePath!)/env.invalid-encoding"
+        let encoding: String.Encoding = .shiftJIS
+
+        // Act/Assert
+        XCTAssertThrowsError(try env.readFile(at: filePath, encoding: encoding)) { error in
+            XCTAssertTrue(error is FileError)
+            XCTAssertEqual(error.localizedDescription, """
+            [File: "\(filePath)"] \(String(describing: FileError.self)): \(ErrorType.fileNotEncodable.message)
+            """)
+        }
+    }
+
     func testReadingNonExistingFile() {
         // Act/Assert
         XCTAssertThrowsError(try env.readFile(at: nonExistingFilePath)) { error in
@@ -46,7 +60,7 @@ final class DotEnvTests: XCTestCase {
 
     func testParsingFileWithInvalidVariableValue() {
         // Arrange
-        let filePath = "\(Bundle.module.resourcePath!)/env.invalid"
+        let filePath = "\(Bundle.module.resourcePath!)/env.invalid-variable"
         let file = try! env.readFile(at: filePath)
         let variable = file.source.trimmingCharacters(in: .newlines)
         let line = 1
