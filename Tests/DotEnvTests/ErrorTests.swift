@@ -11,7 +11,7 @@ final class FileErrorTests: XCTestCase {
         // Assert
         XCTAssertEqual(
             error.message,
-            "\(String(describing: FileError.self)): \(ErrorType.unknownedError)"
+            "\(String(describing: FileError.self)): \(ErrorType.unknownError)"
         )
         XCTAssertNil(error.filePath)
         XCTAssertEqual(error.errorDescription, error.message)
@@ -64,7 +64,7 @@ final class SyntaxErrorTests: XCTestCase {
         // Assert
         XCTAssertEqual(error.message, """
         [Line: \(line), Column: \(column)] \(String(describing: SyntaxError.self)): \
-        \(ErrorType.unknownedError)
+        \(ErrorType.unknownError)
         """)
         XCTAssertNil(error.filePath)
         XCTAssertEqual(error.line, line)
@@ -148,8 +148,8 @@ final class ErrorTypeTests: XCTestCase {
             empty.
             """
         )
-        XCTAssertEqual(ErrorType.unknownedError.message, ErrorType.unknownedError.errorDescription)
-        XCTAssertEqual(ErrorType.unknownedError.message, "An unknown error.")
+        XCTAssertEqual(ErrorType.unknownError.message, ErrorType.unknownError.errorDescription)
+        XCTAssertEqual(ErrorType.unknownError.message, "An unknown error.")
         XCTAssertEqual(ErrorType.unterminatedString.message, ErrorType.unterminatedString.errorDescription)
         XCTAssertEqual(ErrorType.unterminatedString.message, "An unterminated string.")
     }

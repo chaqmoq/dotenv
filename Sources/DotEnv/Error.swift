@@ -21,7 +21,7 @@ public struct FileError: LocalizedError, Equatable {
         if let message = message, !message.isEmpty {
             self.message = "\(errorType): \(message)"
         } else {
-            self.message = "\(errorType): \(ErrorType.unknownedError)"
+            self.message = "\(errorType): \(ErrorType.unknownError)"
         }
 
         if let filePath = filePath {
@@ -59,7 +59,7 @@ public struct SyntaxError: LocalizedError, Equatable {
         if let message = message, !message.isEmpty {
             self.message = "\(errorType): \(message)"
         } else {
-            self.message = "\(errorType): \(ErrorType.unknownedError)"
+            self.message = "\(errorType): \(ErrorType.unknownError)"
         }
 
         if let filePath = filePath {
@@ -85,7 +85,7 @@ public enum ErrorType: LocalizedError {
     case invalidVariableValue(_ variable: String)
 
     /// Fired as a fallback for an unknown error.
-    case unknownedError
+    case unknownError
 
     /// Fired when the value of an environment variable is not closed with double quotes.
     case unterminatedString
@@ -107,7 +107,7 @@ public enum ErrorType: LocalizedError {
             A variable "\(variable)" must have a value or a suffix "\(Token.equal.rawValue)" to denote its value is \
             empty.
             """
-        case .unknownedError: return "An unknown error."
+        case .unknownError: return "An unknown error."
         case .unterminatedString: return "An unterminated string."
         }
     }
