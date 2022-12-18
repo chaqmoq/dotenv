@@ -154,11 +154,6 @@ extension Parser {
     }
 
     private func substring(from start: Int, to end: Int) -> String {
-        if start < 0 || end < 0 || start > end || start > count {
-            return Token.eof.rawValue
-        }
-
-        let end = end > count ? count : end
         let source = file.source
         let lowerBound = source.index(source.startIndex, offsetBy: start)
         let upperBound = source.index(source.startIndex, offsetBy: end)
