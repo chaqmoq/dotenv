@@ -9,7 +9,7 @@
         <a href="https://sonarcloud.io/project/overview?id=chaqmoq_dotenv"><img src="https://sonarcloud.io/api/project_badges/measure?project=chaqmoq_dotenv&metric=alert_status" /></a>
         <a href="https://chaqmoq.dev/dotenv/"><img src="https://github.com/chaqmoq/dotenv/raw/gh-pages/badge.svg" /></a>
         <a href="https://github.com/chaqmoq/dotenv/blob/master/CONTRIBUTING.md"><img src="https://img.shields.io/badge/contributing-guide-brightgreen.svg" /></a>
-        <a href="https://twitter.com/chaqmoqdev"><img src="https://img.shields.io/badge/twitter-chaqmoqdev-brightgreen.svg" /></a>
+        <a href="https://t.me/chaqmoqdev"><img src="https://img.shields.io/badge/telegram-chaqmoqdev-brightgreen.svg" /></a>
     </p>
     <p>A package to load and manage environment files and variables written in <a href="https://swift.org">Swift</a>. This is one of the packages of <a href="https://chaqmoq.dev">Chaqmoq</a>. Read the <a href="https://docs.chaqmoq.dev">documentation</a> for more info.</p>
 </div>
